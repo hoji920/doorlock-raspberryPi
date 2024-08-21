@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail TODO List</title>
+  </head>
+  <body>
+    <section id="container">
+      <h1 class="title">TODO LIST</h1>
+      <div class="input-container">
+        <input type="text" class="todo-input" id="todo-input" onkeyup="enterkey();" />
+      </div>
+      <div class="filter-container">
+        <select id="todo-filter">
+          <option value="all">전체</option>
+          <option value="todo">할일</option>
+          <option value="done">완료</option>
+        </select>
+      </div>
+      <div class="list-container">
+        <ul id="todo-list" class="todo-list"></ul>
+      </div>
+    </section>
+  </body>
+  <script>
+
+     function enterkey() {
+          if(window.event.keyCode ==13){
+            //요소노드 생성
+            const li =document.createElement("li");
+            const newSpan = document.createElement('span');
+            const EditBtn =document.createElement("button");
+            const DeleteBtn =document.createElement("button");
+            const SaveBtn =document.createElement("button");
+            const ch_input =document.createElement("input");
+            const ul= document.getElementById('todo-list')
+
+            //스팬에 input 텍스트 집어 넣기~
+            const todoInput = document.querySelector('#todo-input');
+            newSpan.textContent=todoInput.value;
+
+            //체크박스로 타입 설정
+            ch_input.setAttribute("type","checkbox");
+            EditBtn.textContent="edit";
+            DeleteBtn.textContent="X";
+            SaveBtn.textContent="save";
+
+
+            li.appendChild(ch_input);
+            li.appendChild(newSpan);
+            li.appendChild(EditBtn);
+            li.appendChild(DeleteBtn);
+
+            ul.appendChild(li);
+
+
+
+            //할일 수정 함수
+            EditBtn.addEventListener('click', function() {
+            const EditSpan = newSpan.textContent.replace('');
+
+            // 새로운 input 요소 생성
+            const inputElement = document.createElement('input');
+            inputElement.type = 'text';
+            inputElement.value = EditSpan;
+
+               li.removeChild(EditBtn);
+               li.removeChild(DeleteBtn);
+
+            // input 요소와 Save 버튼을 li에 추가
+
+               li.appendChild(inputElement);
+               li.appendChild(SaveBtn);
+
+
+
+            // Save버튼 누르면 저장 함수
+            SaveBtn.addEventListener('click', function() {
+                const NewSaveText = inputElement.value;
+
+                li.appendChild(ch_input);
+                li.textContent = NewSaveText;
+                li.appendChild(EditBtn);
+                li.appendChild(DeleteBtn);
+            });
+
+        });
+
+        //체크박스 완료 함수
+        ch_input.addEventListener('click',function(){
+          ul.removeChild(li);
+          alert('완료하였습니다');
+        });
+
+
+            //X버튼 누르면 삭제 이벤트
+            DeleteBtn.addEventListener('click', function() {
+              ul.removeChild(event.currentTarget.parentNode);
+            });
+          }
+
+
+    }
+
+  </script>
+</html>

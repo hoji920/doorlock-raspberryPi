@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple TODO List</title>
+  </head>
+  <body>
+    <section id="container">
+      <h1 class="title">TODO</h1>
+      <div class="input-container">
+        <input type="text" class="todo-input" id="text" />
+        <input type="button" value="저장" onclick="saveTodo()" />
+      </div>
+      <div class="list-container">
+        <ul id="todo-list" class="todo-list">
+          <li>밥 먹기</li>
+          <li>2시 약속</li>
+        </ul>
+      </div>
+    </section>
+    <script>
+
+     function saveTodo(){
+      const saveText = document.getElementById('text').value;
+      const li =document.createElement("li");
+      li.setAttribute('id',saveText);
+
+      const textNode = document.createTextNode(saveText);
+      li.appendChild(textNode);
+
+     document.getElementById('todo-list').appendChild(li);
+     }
+
+    </script>
+  </body>
+</html>
